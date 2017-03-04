@@ -70,8 +70,8 @@ public class TheTest {
         Thread.sleep(1000);
         cf.setData().forPath("/super", "456".getBytes());
 
-        Thread.sleep(1000);
-        cf.delete().forPath("/super");
+//        Thread.sleep(1000);
+//        cf.delete().forPath("/super");
 
         Thread.sleep(Integer.MAX_VALUE);
     }
