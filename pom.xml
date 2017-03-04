@@ -37,11 +37,32 @@
         </dependency>
 
         <!-- zookeeper  -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
             <version>3.4.9</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.5.2-alpha</version>
         </dependency>
+
+
+
+        <!-- curator核心jar包 -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        <!-- 实现watcher相关功能的jar包 -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
 
     </dependencies>
 
