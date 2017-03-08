@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import zookeeper.base.Base;
 
 /**
  * Created by Administrator on 2017/3/5 0005.
@@ -20,7 +19,7 @@ public class TheTest {
 
 
     /** zookeeper地址 */
-    static final String CONNECT_ADDR = "10.130.41.164:2181,10.130.41.166:2181,10.130.41.170:2181";
+    static final String CONNECT_ADDR = "10.130.38.216:2181";
     /** session超时时间 */
     static final int SESSION_OUTTIME = 25000;//ms
 
@@ -108,28 +107,84 @@ public class TheTest {
         });
 
         //创建本身节点不发生变化
-        cf.create().forPath("/super", "init".getBytes());
-
-        //添加子节点
-        Thread.sleep(1000);
-        cf.create().forPath("/super/c1", "c1内容".getBytes());
-        Thread.sleep(1000);
-        cf.create().forPath("/super/c2", "c2内容".getBytes());
-
-        //修改子节点
-        Thread.sleep(1000);
-        cf.setData().forPath("/super/c1", "c1更新内容".getBytes());
-
-        //删除子节点
-        Thread.sleep(1000);
-        cf.delete().forPath("/super/c2");
+//        cf.create().forPath("/super", "init".getBytes());
+//
+//        //添加子节点
+//        Thread.sleep(1000);
+//        cf.create().forPath("/super/c1", "c1内容".getBytes());
+//        Thread.sleep(1000);
+//        cf.create().forPath("/super/c2", "c2内容".getBytes());
+//
+//        //修改子节点
+//        Thread.sleep(1000);
+//        cf.setData().forPath("/super/c1", "c1更新内容".getBytes());
+//
+//        //删除子节点
+//        Thread.sleep(1000);
+//        cf.delete().forPath("/super/c2");
 
         //删除本身节点
-        Thread.sleep(1000);
-        cf.delete().deletingChildrenIfNeeded().forPath("/super");
+//        Thread.sleep(1000);
+//        cf.delete().deletingChildrenIfNeeded().forPath("/super");
 
         Thread.sleep(Integer.MAX_VALUE);
     }
 
+    //这个是上面两个的结合体，可以感知孙子节点和自己节点本身
+    @Test
+    public void testTreeCache() throws Exception {
+        //4 建立一个PathChildrenCache缓存,第三个参数为是否接受节点数据内容 如果为false则不接受
+        TreeCache  cache = new TreeCache (cf, "/super");
+        //5 在初始化的时候就进行缓存监听
+        cache.getListenable().addListener(new TreeCacheListener() {
+            public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {
+                ChildData data = event.getData();
+                if(data !=null){
+                    switch (event.getType()) {
+                        case NODE_ADDED:
+                            System.out.println("NODE_ADDED : "+ data.getPath() +"  数据:"+ new String(data.getData()));
+                            break;
+                        case NODE_REMOVED:
+                            System.out.println("NODE_REMOVED : "+ data.getPath() +"  数据:"+ new String(data.getData()));
+                            break;
+                        case NODE_UPDATED:
+                            System.out.println("NODE_UPDATED : "+ data.getPath() +"  数据:"+ new String(data.getData()));
+                            break;
+
+                        default:
+                            break;
+                    }
+                }else{
+                    System.out.println( "data is null : "+ event.getType());
+                }
+            }
+        });
+
+        //开始监听
+        cache.start();
+
+        //创建本身节点不发生变化
+//        cf.create().forPath("/super", "init".getBytes());
+//
+//        //添加子节点
+//        Thread.sleep(1000);
+//        cf.create().forPath("/super/c1", "c1内容".getBytes());
+//        Thread.sleep(1000);
+//        cf.create().forPath("/super/c2", "c2内容".getBytes());
+//
+//        //修改子节点
+//        Thread.sleep(1000);
+//        cf.setData().forPath("/super/c1", "c1更新内容".getBytes());
+//
+//        //删除子节点
+//        Thread.sleep(1000);
+//        cf.delete().forPath("/super/c2");
+
+        //删除本身节点
+//        Thread.sleep(1000);
+//        cf.delete().deletingChildrenIfNeeded().forPath("/super");
+
+        Thread.sleep(Integer.MAX_VALUE);
+    }
 
 }
