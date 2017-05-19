@@ -81,9 +81,9 @@ public class MaxSubArray {
     public void dp(List<Integer> input) {
         int inputSize = input.size();
         int[][] s = new int[inputSize][3];   //记录动态规划中每个状态的和
-        s[0][0] = input.get(0);
-        s[0][1] = 0;
-        s[0][2] = 0;
+        s[0][0] = input.get(0);  //到A[i] 最大和
+        s[0][1] = 0;  //到A[i]为止，从哪个索引开始是最大的
+        s[0][2] = 0;  //A[i]在数组中的索引，位置
         int max =  s[0][0];
         int maxIdex = 0;
         for (int i=1;i<inputSize;i++) {
@@ -106,6 +106,13 @@ public class MaxSubArray {
         }
     }
 
+    /**'
+     * 分治法
+     * @param input
+     * @param start
+     * @param end
+     * @return
+     */
     public int dc(List<Integer> input, int start, int end) {
         if (end == start) {
             return input.get(start);

@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<cluster xmlns="http://caucho.com/ns/resin" xmlns:resin="urn:java:com.caucho.resin">
+    <database>
+        <jndi-name>jdbc/ccod</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/baseHistoryDB</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/stateReport</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/ucds</jndi-name>
+        <driver type="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+            <url>jdbc:mysql://192.168.30.50:3306/ucds</url>
+            <user>system</user>
+            <password>qnsoft</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>200</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/portaldb</jndi-name>
+        <driver type="org.gjt.mm.mysql.Driver">
+            <url>jdbc:mysql://192.168.30.50:3306/portaldb</url>
+            <user>system</user>
+            <password>qnsoft</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/ivr</jndi-name>
+        <driver type="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+            <url>jdbc:mysql://192.168.30.50:3306/ivr</url>
+            <user>system</user>
+            <password>qnsoft</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>200</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/oraclePAone</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>30</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/oraclePAoneHistory</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>30</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/oraclePAtwo</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/oraclePAtwoHistory</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/recordTemplate</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@10.130.41.159:1521:ccpbs</url>
+            <user>record</user>
+            <password>record</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/oraclePAthree</jndi-name>
+        <driver type="oracle.jdbc.pool.OracleConnectionPoolDataSource">
+            <url>jdbc:oracle:thin:@10.130.41.159:1521:ccpbs</url>
+            <user>record</user>
+            <password>record</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>20</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+
+
+    <database>
+        <jndi-name>jdbc/oraclePAfour</jndi-name>
+        <driver type="oracle.jdbc.OracleDriver">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>5</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/deploy</jndi-name>
+        <driver type="oracle.jdbc.OracleDriver">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>5</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+    <database>
+        <jndi-name>jdbc/sdA</jndi-name>
+        <driver type="oracle.jdbc.OracleDriver">
+            <url>jdbc:oracle:thin:@192.168.30.20:1521:ccpbs14</url>
+            <user>ccod</user>
+            <password>ccod</password>
+        </driver>
+        <prepared-statement-cache-size>8</prepared-statement-cache-size>
+        <max-connections>5</max-connections>
+        <max-idle-time>30s</max-idle-time>
+    </database>
+
+</cluster>
+
