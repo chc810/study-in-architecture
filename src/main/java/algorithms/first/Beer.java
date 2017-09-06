@@ -16,6 +16,8 @@ import org.junit.Test;
  */
 public class Beer {
 
+    private static int b = 0;
+
     @Test
     public void main() {
         System.out.println(drink(26));
@@ -26,20 +28,36 @@ public class Beer {
         System.out.println(i);
     }
 
+    @Test
+    public void main1() {
+        int n = 501;
+        System.out.println(beer(n));
+        beer1(n);
+        System.out.println(b);
+    }
+
     public int beer(int n) {
         if (n<5) {
             return 0;
         }
         int x = n / 5;
         int y = n % 5;
-        if (y == 0) {
-            return x + beer(x);
-        } else {
-            return x + beer(x+y);
+        return x + beer(x+y);
+    }
+
+    public void beer1(int n) {
+        if (n<5) {
+            return ;
         }
+        int x = n / 5;
+        int y = n % 5;
+        b+=x;
+        beer1(x+y);
     }
 
     public int drink(int n) {
         return n + beer(n);
+      /*  beer1(n);
+       return n + b;*/
     }
 }
