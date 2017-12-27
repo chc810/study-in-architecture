@@ -31,4 +31,51 @@ GROUP BY a.s, a.sname;
 SELECT count(t) from teacher where tname LIKE "李%";
 
 ##7、查询学过"张三"老师授课的同学的信息
-SELECT * from student a inner join sc b on a.s = b.s inner JOIN course c on b.c = c.c INNER join teacher d on c.t = d.t and d.tname = "张三";
+SELECT *
+FROM student a INNER JOIN sc b ON a.s = b.s
+  INNER JOIN course c ON b.c = c.c
+  INNER JOIN teacher d ON c.t = d.t AND d.tname = "张三";
+
+##8、查询没学过"张三"老师授课的同学的信息
+##注意，此处使用not exists时，前面select的条件只能在后面where中，不能在on中
+SELECT *
+FROM student a
+WHERE NOT exists(SELECT *
+                 FROM teacher aa INNER
+                   JOIN course bb ON aa.t = bb.t
+                   INNER JOIN sc cc ON bb.c = cc.c
+                 where aa.tname = "张三" AND a.s = cc.s);
+
+##9、查询学过编号为"01"并且也学过编号为"02"的课程的同学的信息
+
+SELECT *
+FROM student a INNER JOIN sc b ON a.s = b.s AND b.c = "01"
+  INNER JOIN sc c ON a.s = c.s AND c.c = "02";
+
+##10、查询学过编号为"01"但是没有学过编号为"02"的课程的同学的信息
+
+SELECT *
+FROM student a INNER JOIN sc b ON a.s = b.s AND b.c = "01"
+WHERE NOT exists(SELECT *
+                 FROM sc c
+                 WHERE a.s = c.s AND c.c = "02");
+
+##下面的方法使用了left join的特性
+select *
+from student a
+  left join sc b
+    on a.s=b.s and b.c='01'
+  left join sc c
+    on a.s=c.s and c.c='02'
+where b.c='01' and c.c is null;
+
+##20、查询学生的总成绩并进行排名
+select a.s, a.sname, sum(b.score) from student a LEFT JOIN sc b on a.s = b.s GROUP BY a.s, a.sname ORDER BY sum(b.score) desc;
+
+SELECT a.*
+  ,COUNT(b.c)+1 asall
+FROM sc a
+  LEFT JOIN sc b
+    ON a.c=b.c AND a.score<b.score
+GROUP BY 1,2,3
+ORDER BY a.c,asall;
