@@ -33,6 +33,7 @@ public class JavassistProxy {
 class Buu {
     static {
         System.out.println("-----------Buu static---------------");
+
     }
 
     public void doSomeThing() {

@@ -1,19 +1,8 @@
 package file;
 
-import com.channelsoft.MyTest;
-import org.junit.Test;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
-
 public class DuplicateTest {
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
 //        checkDuplicate(MyTest.class);
 //        checkDuplicate("META-INF/MANIFEST.MF");
         checkDuplicate("config.properties");
@@ -52,5 +41,5 @@ public class DuplicateTest {
         BufferedReader br =  new BufferedReader(new InputStreamReader(url.openStream()));
         System.out.println(br.readLine());
         br.close();
-    }
+    }*/
 }

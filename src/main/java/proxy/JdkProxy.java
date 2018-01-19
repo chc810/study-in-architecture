@@ -26,6 +26,7 @@ public class JdkProxy {
         MyInvocationHandler myInvocationHandler = new MyInvocationHandler(useService);
         UseService tar = (UseService)myInvocationHandler.getProxy();
         tar.del();
+        tar.add();
 
     }
 
