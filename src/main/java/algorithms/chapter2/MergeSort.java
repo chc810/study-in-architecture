@@ -153,7 +153,7 @@ public class MergeSort {
         }
     }
 
-    private void merge(int[] a, int[] aux, int lo, int mid, int hi) {
+    public static void merge(int[] a, int[] aux, int lo, int mid, int hi) {
         if (lo == hi) {
             return;
         }

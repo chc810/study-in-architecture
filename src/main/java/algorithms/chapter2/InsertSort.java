@@ -15,10 +15,34 @@ public class InsertSort {
         }
     }
 
+    /**
+     * 为归并排序准备的
+     * @param a
+     */
+    public static void doSort4Merge(int[] a, int lo, int hi) {
+        for (int i=lo;i<hi;i++) {
+            for (int j = i+1;j>lo && a[j] < a[j - 1];j--) {
+                int temp = a[j];
+                a[j] = a[j - 1];
+                a[j - 1] = temp;
+            }
+
+        }
+    }
+
     @Test
     public void test() {
         int[] a=new int[]{34,6,2,5,7,4,1,1};
         doSort(a);
+        for (int i : a) {
+            System.out.print(i + " ");
+        }
+    }
+
+    @Test
+    public void test1() {
+        int[] a=new int[]{34,6,2,5,7,4,1,1};
+        doSort4Merge(a,1,6);
         for (int i : a) {
             System.out.print(i + " ");
         }
