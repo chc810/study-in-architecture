@@ -20,53 +20,7 @@ import java.util.Random;
  */
 public class MergeSort {
 
-    /**
-     * 生成随机数据用于排序
-     */
-    @Test
-    public void genaralNum() {
-//        int num = 100 * 1000 * 1000 / 4;
-        int num = 100 * 1000*10 /4;
-        int[] nums = new int[num + 1];
-        int[] aux = new int[num + 1];
-        for (int i=1;i<=num;i++) {
-            nums[i] = i;
-            aux[i] = i;
-        }
-        for (int i = aux.length - 1; i>0;i--) {
-            int randomIndex = getRandom(i);
-            int temp = aux[randomIndex];
-            aux[randomIndex] = aux[i];
-            aux[i] = temp;
-        }
 
-        File file = new File("E:\\Temp\\numsmid");
-        DataOutputStream dataOutputStream = null;
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
-                dataOutputStream = new DataOutputStream(bufferedOutputStream);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            for (int i = 1; i<= nums.length -1;i++) {
-                dataOutputStream.writeInt(nums[aux[i]]);
-            }
-            dataOutputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                dataOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-   }
 
    private int[] readNums() {
        int[] nums = new int[100 * 1000*10 /4];
@@ -90,23 +44,12 @@ public class MergeSort {
    }
 
    @Test
-   public void testRandom() {
-        for (int i=0;i<100;i++) {
-            System.out.println(getRandom(10));
-        }
-   }
-
-   @Test
    public void testFile() throws IOException {
        File file = new File("E:\\Temp\\nums");
        if (!file.exists()) {
            file.createNewFile();
        }
 //       FileOutputStream fileOutputStream = new FileOutputStream(file);
-   }
-
-   private int getRandom(int num) {
-       return (int)(Math.random() * num) + 1;
    }
 
 

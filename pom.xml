@@ -98,18 +98,6 @@
             <version>3.21.0-GA</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.cuihc.study</groupId>
-            <artifactId>t1</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.cuihc.study</groupId>
-            <artifactId>t2</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
 
     </dependencies>
 

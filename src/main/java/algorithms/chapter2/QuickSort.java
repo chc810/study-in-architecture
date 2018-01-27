@@ -1,5 +1,7 @@
 package algorithms.chapter2;
 
+import org.junit.Test;
+
 /**
  * <dl>
  * <dt>QuickSort</dt>
@@ -13,26 +15,42 @@ package algorithms.chapter2;
  */
 public class QuickSort {
 
+
+    @Test
+    public void test() {
+        int[] a = new int[]{3,6,3,3,3};
+        sort(a,0,a.length - 1);
+        for (int aa : a) {
+            System.out.print(aa + " ");
+        }
+    }
+
     public static void sort(int[] a, int lo, int hi) {
         if (hi - lo <= 0) {
             return;
         }
         if (hi - lo == 1) {
-            if (a[hi] > a[lo]) {
+            if (a[hi] < a[lo]) {
                 swap(a, hi, lo);
             }
             return;
         }
-        int j = lo;
-        int lp = lo + 1;
-        int hp = hi;
-        int p = lo;
-        while (lp <  hp) {
-            while (a[lp] <= a[p]) lp++;
-            while (a[hi] >= a[p]) hi--;
-            swap(a, lp, hi);
+        int i = lo;
+        int j = hi + 1;
+        while (true) {
+            while (a[++i] < a[lo]) {
+                if (i == hi) {
+                    break;
+                }
+            }
+            while (a[--j] > a[lo]) {
+            }
+            if (i>=j) {
+                break;
+            }
+            swap(a, i, j);
         }
-
+        swap(a, lo,j);
         sort(a, lo, j - 1);
         sort(a, j + 1, hi);
         }
