@@ -88,6 +88,7 @@ public class SortMain {
         int[] merge1xNums = Arrays.copyOf(a,a.length);
         int[] merge2xNums = Arrays.copyOf(a,a.length);
         int[] quickNums = Arrays.copyOf(a,a.length);
+        int[] quick1Nums = Arrays.copyOf(a,a.length);
         System.out.println("read finish...");
         int[] aux = new int[mergeNums.length];
         StopWatch stopWatch = new StopWatch();
@@ -123,6 +124,23 @@ public class SortMain {
         System.out.println("QuickSort finish。。" + stopWatch.getTime());
         for (int i = 100;i<200;i++) {
             System.out.print(quickNums[i] + " ");
+        }
+
+        System.out.println();
+        stopWatch.reset();
+        stopWatch.start();
+        //选出最大的放在最后当哨兵
+        int maxIndex = 0;
+        for (int i=1;i<quick1Nums.length;i++) {
+            if (quick1Nums[i] > quick1Nums[maxIndex]) {
+                maxIndex = i;
+            }
+        }
+        QuickSort.swap(quick1Nums, maxIndex, quick1Nums.length - 1);
+        QuickSort.sort(quick1Nums,0, quick1Nums.length - 1);
+        System.out.println("Quick1Sort finish。。" + stopWatch.getTime());
+        for (int i = 100;i<200;i++) {
+            System.out.print(quick1Nums[i] + " ");
         }
     }
 }
