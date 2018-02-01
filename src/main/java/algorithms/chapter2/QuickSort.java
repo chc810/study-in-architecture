@@ -35,6 +35,12 @@ public class QuickSort {
             }
             return;
         }
+        int j = partion(a, lo, hi);
+        sort(a, lo, j - 1);
+        sort(a, j + 1, hi);
+        }
+
+    public static int partion(int[] a, int lo, int hi) {
         int i = lo;
         int j = hi + 1;
         while (true) {
@@ -52,11 +58,11 @@ public class QuickSort {
             swap(a, i, j);
         }
         swap(a, lo,j);
-        sort(a, lo, j - 1);
-        sort(a, j + 1, hi);
-        }
+        return j;
+    }
 
-    public static void sort1(int[] a, int lo, int hi) {
+
+        public static void sort1(int[] a, int lo, int hi) {
         if (hi - lo <= 0) {
             return;
         }
@@ -86,11 +92,15 @@ public class QuickSort {
         swap(a, lo,j);
         sort1(a, lo, j - 1);
         sort1(a, j + 1, hi);
-    }
-
-        public static void swap(int[] a, int i, int j) {
+    }public static void swap(int[] a, int i, int j) {
             int temp = a[i];
             a[i] = a[j];
             a[j] = temp;
+        }
+
+        public static void syso(int[] a) {
+            for (int aa : a) {
+                System.out.print(aa + " ");
+            }
         }
 }
