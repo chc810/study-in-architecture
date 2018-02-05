@@ -94,6 +94,11 @@ public class SortMain {
         for (int i=0;i<a.length;i++) {
             heapNums[i+1] = a[i];
         }
+        int[] heap1Nums = new int[a.length + 1];
+        heap1Nums[0] = -1111;
+        for (int i=0;i<a.length;i++) {
+            heap1Nums[i+1] = a[i];
+        }
         System.out.println("read finish...");
         int[] aux = new int[mergeNums.length];
         StopWatch stopWatch = new StopWatch();
@@ -155,6 +160,15 @@ public class SortMain {
         System.out.println("HeapSort finish。。" + stopWatch.getTime());
         for (int i = 100;i<200;i++) {
             System.out.print(heapNums[i] + " ");
+        }
+
+        System.out.println();
+        stopWatch.reset();
+        stopWatch.start();
+        Heap1Sort.sort(heap1Nums);
+        System.out.println("Heap1Sort finish。。" + stopWatch.getTime());
+        for (int i = 100;i<200;i++) {
+            System.out.print(heap1Nums[i] + " ");
         }
     }
 }

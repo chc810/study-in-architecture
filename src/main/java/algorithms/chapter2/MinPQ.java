@@ -1,10 +1,8 @@
 package algorithms.chapter2;
 
-import java.util.Date;
-
 /**
  * <dl>
- * <dt>MaxPQ</dt>
+ * <dt>MinPQ</dt>
  * <dd>Description:优先队列，插入删除的复杂度都为O(lgN)
  * 使用数组方式
  *
@@ -16,24 +14,24 @@ import java.util.Date;
  *
  * @author cuihc
  */
-public class MaxPQ<Key extends Comparable<Key>> {
+public class MinPQ<Key extends Comparable<Key>> {
 
     private int maxSize;
     private int N = 0;
     Key[] pq;
 
-    public MaxPQ(){
+    public MinPQ(){
         this(100);
     }
 
-    public MaxPQ(int max) {
+    public MinPQ(int max) {
         this.maxSize = max;
         pq = (Key[])new Comparable[maxSize + 1];
     }
 
     public void insert(Key key) {
         if (N == maxSize) {
-            throw new RuntimeException("MaxPQ最大容量为" + maxSize);
+            throw new RuntimeException("MinPQ最大容量为" + maxSize);
         }
         pq[++N] = key;
         swim(N);
@@ -43,7 +41,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
         int temp = i;
         while(temp > 1) {
             int parent = parent(temp);
-            if (pq[parent].compareTo(pq[temp]) < 0) {
+            if (pq[parent].compareTo(pq[temp]) > 0) {
                 swap(parent, temp);
                 temp = parent;
             } else {
@@ -62,16 +60,16 @@ public class MaxPQ<Key extends Comparable<Key>> {
         if (index >= N) {
             return;
         }
-        int max = index;
-        if (left(index) <= N && pq[left(index)].compareTo(pq[max]) > 0) {
-            max = left(index);
+        int min = index;
+        if (left(index) <= N && pq[left(index)].compareTo(pq[min]) < 0) {
+            min = left(index);
         }
-        if (right(index) <= N && pq[right(index)].compareTo(pq[max]) > 0) {
-            max = right(index);
+        if (right(index) <= N && pq[right(index)].compareTo(pq[min]) < 0) {
+            min = right(index);
         }
-        if (max != index) {
-            swap(index, max);
-            sink(max);
+        if (min != index) {
+            swap(index, min);
+            sink(min);
         }
     }
 
@@ -85,15 +83,18 @@ public class MaxPQ<Key extends Comparable<Key>> {
         return left(index) + 1;
     }
 
-    public Key max() {
+    public Key min() {
+        if (N == 0) {
+            return null;
+        }
         return pq[1];
     }
 
-    public Key delMax() {
+    public Key delMin() {
         if (N == 0) {
-            throw new RuntimeException("MaxPQ为空");
+            throw new RuntimeException("MinPQ为空");
         }
-        Key max = max();
+        Key max = min();
         swap(1,N--);
         sink(1);
         return max;
@@ -104,25 +105,24 @@ public class MaxPQ<Key extends Comparable<Key>> {
     }
 
     public static void main(String[] args) {
-        MaxPQ<Integer> maxPQ = new MaxPQ<Integer>(100);
+        MinPQ<Integer> maxPQ = new MinPQ<Integer>(100);
         maxPQ.insert(1);
-        System.out.println(maxPQ.max());
+        System.out.println(maxPQ.min());
         maxPQ.insert(10);
-        System.out.println(maxPQ.max());
+        System.out.println(maxPQ.min());
         maxPQ.insert(2);
-        System.out.println(maxPQ.max());
+        System.out.println(maxPQ.min());
         maxPQ.insert(11);
-        System.out.println(maxPQ.max());
+        System.out.println(maxPQ.min());
         System.out.println(maxPQ.size());
         System.out.println("------------------");
-        System.out.println( maxPQ.delMax());
-        System.out.println( maxPQ.delMax());
-        System.out.println( maxPQ.delMax());
-        System.out.println( maxPQ.delMax());
-        System.out.println( maxPQ.delMax());
-        System.out.println( maxPQ.delMax());
+        System.out.println( maxPQ.delMin());
+        System.out.println( maxPQ.delMin());
+        System.out.println( maxPQ.delMin());
+        System.out.println( maxPQ.delMin());
+        System.out.println( maxPQ.delMin());
+        System.out.println( maxPQ.delMin());
 
-        MaxPQ<Date> maxPQ1 = new MaxPQ<Date>();
 
     }
 
