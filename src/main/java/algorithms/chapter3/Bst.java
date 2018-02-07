@@ -73,15 +73,81 @@ public class Bst<Key extends Comparable<Key>, Value> {
         return node.key;
     }
 
-   /* public Key select(int k) {
+    public Key select(int k) {
+        Node node = select(root, k);
+        if (node == null) {
+            return null;
+        }
+        return node.key;
+    }
 
+    public void deleteMini() {
+        root = deleteMini(root);
+    }
+
+    public void delete(Key key) {
+        root = delete(root, key);
+    }
+
+    private Node delete(Node node, Key key) {
+        if (node == null) {
+            return null;
+        }
+        int r = key.compareTo(node.key);
+        if (r == 0) {
+            //相等
+            if (node.left != null && node.right == null) {
+                //只存在左孩子
+                return node.left;
+            } else if (node.left == null && node.right != null) {
+                //只存在右孩子
+                return node.right;
+            } else if (node.left == null && node.right == null) {
+                return null;
+            } else {
+                //两个孩子都存在
+                Node rightMin = min(node.right);
+                rightMin.right =  deleteMini(node.right);
+                rightMin.left = node.left;
+                rightMin.N = size(rightMin.left) + size(rightMin.right) + 1;
+                return rightMin;
+            }
+        } else if (r < 0) {
+            node.left = delete(node.left,key);
+        } else {
+            node.right = delete(node.right, key);
+        }
+        node.N = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+
+    private Node deleteMini(Node node) {
+        if (node == null) {
+            return null;
+        }
+        if (node.left == null) {
+            System.out.println("deletemin =" + node.key);
+            return node.right;
+        }
+        Node node1 = deleteMini(node.left);
+        node.left = node1;
+        node.N = size(node1) + size(node.right) + 1;
+        return node;
     }
 
     private Node select(Node node, int k) {
         if (node == null) {
-
+            return null;
         }
-    }*/
+        int leftSize = size(node.left);
+        if (leftSize > k) {
+            return select(node.left, k);
+        } else if (leftSize == k) {
+            return node;
+        } else {
+            return select(node.right, k - leftSize - 1);
+        }
+    }
 
     private Node floor(Key key, Node node) {
         if (node == null) {
@@ -125,6 +191,7 @@ public class Bst<Key extends Comparable<Key>, Value> {
 
     public void print() {
         print(root);
+        System.out.println("");
     }
 
     private void print(Node node) {
@@ -132,7 +199,7 @@ public class Bst<Key extends Comparable<Key>, Value> {
             return;
         }
         print(node.left);
-        System.out.print(node.key + " ");
+        System.out.print(node.key + "|size=" + node.N + " ");
         print(node.right);
     }
 
@@ -184,8 +251,6 @@ public class Bst<Key extends Comparable<Key>, Value> {
        return node;
    }
 
-
-
     private int size(Node node) {
         if (node == null) {
             return 0;
@@ -201,6 +266,7 @@ public class Bst<Key extends Comparable<Key>, Value> {
         bst.put(3,3);
         bst.put(7,7);
         bst.put(20,20);
+        bst.put(10,10);
         bst.print();
         System.out.println("-------------------");
         System.out.println(bst.get(19));
@@ -211,6 +277,23 @@ public class Bst<Key extends Comparable<Key>, Value> {
         System.out.println("floor,19==" + bst.floor(19));
         System.out.println("floor,2==" + bst.floor(2));
         System.out.println("floor,100==" + bst.floor(100));
+        System.out.println("select1===" + bst.select(1));
+        System.out.println("select0===" + bst.select(0));
+        System.out.println("select100===" + bst.select(100));
+        System.out.println("select2===" + bst.select(2));
+        System.out.println("select3===" + bst.select(3));
+        System.out.println("select4===" + bst.select(4));
+        System.out.println("-------------------");
+      /*  bst.deleteMini();
+        bst.print();
+        bst.deleteMini();
+        bst.print();
+        bst.deleteMini();
+        bst.print();
+        bst.deleteMini();
+        bst.print();*/
+        bst.delete(8);
+        bst.print();
     }
 
 
