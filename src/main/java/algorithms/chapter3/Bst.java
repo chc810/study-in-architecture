@@ -1,5 +1,8 @@
 package algorithms.chapter3;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * <dl>
  * <dt>Bst</dt>
@@ -88,6 +91,24 @@ public class Bst<Key extends Comparable<Key>, Value> {
     public void delete(Key key) {
         root = delete(root, key);
     }
+    
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftHeight = height(node.left);
+        int rightHeight = height(node.right);
+        if (leftHeight < rightHeight) {
+            return 1 + rightHeight;
+        } else {
+            return 1 + leftHeight;
+        }
+    }
+
 
     private Node delete(Node node, Key key) {
         if (node == null) {
@@ -194,6 +215,28 @@ public class Bst<Key extends Comparable<Key>, Value> {
         System.out.println("");
     }
 
+    /**
+     * 按层次遍历
+     */
+    public void printLevel() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        printLevel(queue);
+    }
+
+    private void printLevel(Queue<Node> queue) {
+        Node node;
+        while ((node = queue.poll()) != null) {
+            System.out.print(node.key + " ");
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+    }
+
     private void print(Node node) {
         if (node == null) {
             return;
@@ -292,8 +335,11 @@ public class Bst<Key extends Comparable<Key>, Value> {
         bst.print();
         bst.deleteMini();
         bst.print();*/
-        bst.delete(8);
-        bst.print();
+      /*  bst.delete(8);
+        bst.print();*/
+
+      System.out.println(bst.height());
+      bst.printLevel();
     }
 
 
