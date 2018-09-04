@@ -17,6 +17,7 @@ public class Server {
     public void start() {
         try {
             serverSocket = new ServerSocket(port);
+            System.out.println("服务端启动");
             while (true) {
                 Socket socket = serverSocket.accept();
                 new ServerHandler(socket).handler();
@@ -24,6 +25,11 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server(8888);
+        server.start();
     }
 
 
