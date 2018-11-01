@@ -1,12 +1,12 @@
 package rxjava;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
+import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import org.junit.Test;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +34,22 @@ public class FirstTest {
         Observable<String>  observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> observableEmitter) throws Exception {
-                logger.info("observable.subscribe()...");
+                logger.info("observable.subscribe()发射。。。。。。。。...");
                 observableEmitter.onNext("我来发射数据");
+                logger.info("observable.subscribe()发射1。。。。。。。。...");
+                observableEmitter.onNext("我来发射数据1");
+                logger.info("observable.subscribe()发射2。。。。。。。。...");
+                observableEmitter.onNext("我来发射数据2");
+                int i = 0;
+                while (i<100) {
+                    logger.info("observable.subscribe()发射2。。。。。。。。...");
+                    Thread.sleep(100);
+                    i++;
+                    observableEmitter.onNext("我来发射数据=" + i);
+                }
             }
-        });
+        }).subscribeOn(Schedulers.io()).observeOn(Schedulers.single());
+
         Observer<String> observer = new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -83,8 +95,9 @@ public class FirstTest {
         };
         logger.info("subscribe start...");
         observable.subscribe(observer);
-        observable.subscribe(observer2);
+//        observable.subscribe(observer2);
         logger.info("subscribe end...");
+        Thread.sleep(400000);
     }
 
     @Test
@@ -220,26 +233,109 @@ public class FirstTest {
                         return 100;
                     }
                 }).subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                logger.info("observer.onSubscribe()...");
+            }
+
+            @Override
+            public void onNext(Integer s) {
+                logger.info("observer.onNext()..." + s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                logger.info("observer.onError()..." + e);
+            }
+
+            @Override
+            public void onComplete() {
+                logger.info("observer.onComplete()...");
+            }
+        });
+    }
+
+    @Test
+    public void backpressureError() throws InterruptedException {
+        Observable<Integer>  observable = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> observableEmitter) throws Exception {
+                int i =0;
+               while (true) {
+                   try {
+                       Thread.sleep(1000);
+                   } catch (InterruptedException e) {
+                       e.printStackTrace();
+                   }
+                   logger.info("发射数据=" + (i++));
+                   observableEmitter.onNext(i);
+               }
+            }
+        });
+        Observer<Integer> observer = new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                logger.info("observer.onSubscribe()...");
+            }
+
+            @Override
+            public void onNext(Integer s) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                logger.info("observer.onNext()..." + s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                logger.info("observer.onError()..." + e);
+            }
+
+            @Override
+            public void onComplete() {
+                logger.info("observer.onComplete()...");
+            }
+        };
+        observable.observeOn(Schedulers.single()).subscribeOn(Schedulers.io()).subscribe(observer);
+        Thread.sleep(400000);
+    }
+
+    @Test
+    public void backpressureException() throws InterruptedException {
+        Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(FlowableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0; i < 100; i++) {
+                    Thread.sleep(100);
+                    logger.info("emit " + i);
+                    emitter.onNext(i);
+                }
+            }
+        }, BackpressureStrategy.ERROR).observeOn(Schedulers.io())
+                .subscribe(new Subscriber<Integer>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        logger.info("observer.onSubscribe()...");
+                    public void onSubscribe(Subscription s) {
+                        logger.info("Subscription: " + s);
+                        s.request(100);
                     }
 
                     @Override
-                    public void onNext(Integer s) {
-                        logger.info("observer.onNext()..." + s);
+                    public void onNext(Integer integer) {
+                        logger.info("onNext: " + integer);
+//                        s.request(1);
                     }
-
                     @Override
-                    public void onError(Throwable e) {
-                        logger.info("observer.onError()..." + e);
+                    public void onError(Throwable t) {
+                        logger.info("onError: ", t);
                     }
 
                     @Override
                     public void onComplete() {
-                        logger.info("observer.onComplete()...");
                     }
                 });
+        Thread.sleep(40000);
     }
 
 }

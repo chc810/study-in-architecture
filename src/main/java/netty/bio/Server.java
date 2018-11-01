@@ -17,7 +17,7 @@ public class Server {
     public void start() {
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("服务端启动");
+            System.out.println("服务端启动".hashCode());
             while (true) {
                 Socket socket = serverSocket.accept();
                 new ServerHandler(socket).handler();

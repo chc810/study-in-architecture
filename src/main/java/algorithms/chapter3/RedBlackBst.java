@@ -4,6 +4,8 @@ package algorithms.chapter3;
  * <dl>
  * <dt>RedBlackBst</dt>
  * <dd>Description:红黑树实现</dd>
+ *
+ * 注意点：新插入的节点都是红节点，不管是左孩子还是右孩子，只有红节点才能保证树的高度不往下增加，跟2-3树对应
  * <dd>Copyright: Copyright (C) 2006</dd>
  * <dd>Company: 青牛（北京）技术有限公司</dd>
  * <dd>CreateDate: 2018/2/8</dd>
