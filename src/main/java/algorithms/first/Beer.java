@@ -22,7 +22,7 @@ public class Beer {
     public void main() {
         System.out.println(drink(26));
         int i =1;
-        while (drink(i) < 32) {
+        while (drink(i) < 100) {
             i++;
         }
         System.out.println(i);
@@ -60,4 +60,43 @@ public class Beer {
       /*  beer1(n);
        return n + b;*/
     }
+
+
+    /**
+     * n个空瓶可以喝多少瓶
+     * @param n
+     * @return
+     */
+    private int newDrink(int n) {
+        if (n < 5) {
+            return 0;
+        }
+       return n / 5 +  newDrink(n / 5 + n % 5);
+    }
+
+    /**
+     * 动态规划方式实现，如果喝了N瓶，需要买多少瓶
+     * @param n
+     * @return
+     */
+    private static int newDrink2(int n) {
+        int[][] arr = new int[2][n + 1];
+        for (int i =1;i<=n;i++) {
+            if (arr[1][i - 1] == 5) {
+                arr[0][i] = arr[0][i - 1];
+                arr[1][i] = 1;
+            } else {
+                arr[0][i] = arr[0][i - 1] + 1;
+                arr[1][i] = arr[1][i - 1] + 1;
+            }
+        }
+        return arr[0][n];
+    }
+
+    @Test
+    public void main2() {
+        System.out.println(newDrink2(7));
+    }
+
+
 }

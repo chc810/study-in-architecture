@@ -1,4 +1,4 @@
-package concurrence;
+package concurrency;
 
 import org.junit.Test;
 
