@@ -29,6 +29,17 @@ public class N120 {
             return ret;
         }
 
+        public int minimumTotal1(List<List<Integer>> triangle) {
+            int[] list = dp(triangle);
+            int ret = list[0];
+            for (int i = 1; i< list.length;i++) {
+                if (list[i] < ret) {
+                    ret = list[i];
+                }
+            }
+            return ret;
+        }
+
         /**
          * 递归思想自顶向下
          * @param triangle
@@ -52,6 +63,29 @@ public class N120 {
                 }
             }
         }
+
+        /**
+         * dp实现
+         * @param triangle
+         * @return
+         */
+        private int[] dp(List<List<Integer>> triangle) {
+            int[] list = new int[triangle.size()];
+            list[0] = triangle.get(0).get(0);
+            for (int index = 1;index<triangle.size();index++) {
+                List<Integer> row = triangle.get(index);
+                for (int i=row.size() - 1;i >= 0;i--) {
+                    if (i == 0) {
+                        list[i] = row.get(i) + list[i];
+                    } else if (i == row.size() - 1) {
+                        list[i] = row.get(i) + list[i - 1];
+                    } else {
+                        list[i] = row.get(i) + Math.min(list[i - 1], list[i]);
+                    }
+                }
+            }
+            return list;
+        }
     }
     public static void main(String[] args) {
         List<Integer> list1 = new ArrayList<>();
@@ -71,6 +105,6 @@ public class N120 {
         list.add(list2);
         list.add(list3);
         list.add(list4);
-        System.out.println(new N120().new Solution().minimumTotal(list));
+        System.out.println(new N120().new Solution().minimumTotal1(list));
     }
 }
