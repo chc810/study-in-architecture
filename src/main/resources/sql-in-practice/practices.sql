@@ -70,8 +70,10 @@ from student a
 where b.c='01' and c.c is null;
 
 ##20、查询学生的总成绩并进行排名
-select a.s, a.sname, sum(b.score) from student a LEFT JOIN sc b on a.s = b.s GROUP BY a.s, a.sname ORDER BY sum(b.score) desc;
+select a.s, a.sname, sum(b.score) from student a LEFT JOIN sc b on a.s = b.s
+GROUP BY a.s, a.sname ORDER BY sum(b.score) desc;
 
+##下面注意 count(Null) 为0;  计算时全部忽略null项;对于avg(null),max(null),min(null),sum(null)为null
 SELECT a.*
   ,COUNT(b.c)+1 asall
 FROM sc a
